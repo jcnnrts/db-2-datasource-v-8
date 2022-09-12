@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "db-2-datasource-v8",
+  "id": "jcnnrts-db-2-datasource-v-8",
+  "metrics": true,
+  "backend": true,
+  "executable": "gpx_db-2-datasource-v8",
+  "info": {
+    "description": "Db2 backend datasource plugin for Grafana v8",
+    "author": {
+      "name": "Jan Cannaerts",
+      "url": "none"
+    },
+    "keywords": [
+      "db2 datasource plugin"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/jcnnrts/db-2-datasource-v8"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/jcnnrts/db-2-datasource-v8/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "plugins": []
+  }
+}
