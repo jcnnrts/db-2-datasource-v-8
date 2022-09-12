@@ -30,7 +30,7 @@ go get -u github.com/grafana/grafana-plugin-sdk-go
 
 Db2 clidriver and its Go wrapper (Windows):
 
-Originally by the IBMDB account on github, forked by my because the pooling code was sketchy at best.
+Originally by the IBMDB account on github, forked by me because the pooling code was sketchy at best.
 ```
 go get -d github.com/jcnnrts/go_ibm_db
 cd %GOPATH%\src\github.com\jcnnrts\go_ibm_db\installer
