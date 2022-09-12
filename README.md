@@ -1,70 +1,50 @@
-# Grafana Data Source Backend Plugin Template
+# Grafana Backend Datasource Plugin for Db2 for z/OS
 
-[![Build](https://github.com/grafana/grafana-starter-datasource-backend/workflows/CI/badge.svg)](https://github.com/grafana/grafana-datasource-backend/actions?query=workflow%3A%22CI%22)
+This plugin allows the visualisation of data contained in Db2 for z/OS tables through Grafana.
 
-This template is a starting point for building Grafana Data Source Backend Plugins
+## Note
 
-## What is Grafana Data Source Backend Plugin?
+Backend datasource plugins run a tertiary program inside of your Grafana instance. Therefore, backend datasource plugins must be signed to make sure they have not been tampered with. Signing plugins is not yet available to individuals such as myself, only Grafana Labs or Enterprise partners can produce signed plugins. You can allow Grafana to load unsigned plugins, but I strongly advise against this unless you inspect the code in this repository first, and then build the plugin yourself. In order for Grafana to load this plugin, add the following line to your Grafana /conf/config.ini;
 
-Grafana supports a wide range of data sources, including Prometheus, MySQL, and even Datadog. There’s a good chance you can already visualize metrics from the systems you have set up. In some cases, though, you already have an in-house metrics solution that you’d like to add to your Grafana dashboards. Grafana Data Source Plugins enables integrating such solutions with Grafana.
+```
+allow_loading_unsigned_plugins = "jcnnrts-db-2-datasource-v-8"
+```
 
-For more information about backend plugins, refer to the documentation on [Backend plugins](https://grafana.com/docs/grafana/latest/developers/plugins/backend/).
+If you need help building, or absolutely want a pre-built /dist folder, send me a message.
 
-## Getting started
+## Building
 
-A data source backend plugin consists of both frontend and backend components.
+The build process is only tested on Windows, for Windows. The go_ibm_db package can be had for Linux and Darwin as well, but the Grafana build process doesn't play nice with cross-compiling. Change Magefile.go to attempt to build for another platform.
 
-### Frontend
+### Tools needed
+- go
+- mage
+- yarn
 
-1. Install dependencies
+### Go dependencies needed for building:
 
-   ```bash
-   yarn install
-   ```
+The Grafana plugin SDK:
+```
+go get -u github.com/grafana/grafana-plugin-sdk-go
+```
 
-2. Build plugin in development mode or run in watch mode
+Db2 clidriver and its Go wrapper (Windows):
 
-   ```bash
-   yarn dev
-   ```
+Originally by the IBMDB account on github, forked by my because the pooling code was sketchy at best.
+```
+go get -d github.com/jcnnrts/go_ibm_db
+cd %GOPATH%\src\github.com\jcnnrts\go_ibm_db\installer
+go run setup.go
+```
 
-   or
+### Build
 
-   ```bash
-   yarn watch
-   ```
+You want to do this in the /plugins folder of your Grafana installation unless you altered your custom.ini file to load plugins from another location.
 
-3. Build plugin in production mode
-
-   ```bash
-   yarn build
-   ```
-
-### Backend
-
-1. Update [Grafana plugin SDK for Go](https://grafana.com/docs/grafana/latest/developers/plugins/backend/grafana-plugin-sdk-for-go/) dependency to the latest minor version:
-
-   ```bash
-   go get -u github.com/grafana/grafana-plugin-sdk-go
-   go mod tidy
-   ```
-
-2. Build backend plugin binaries for Linux, Windows and Darwin:
-
-   ```bash
-   mage -v
-   ```
-
-3. List all available Mage targets for additional commands:
-
-   ```bash
-   mage -l
-   ```
-
-## Learn more
-
-- [Build a data source backend plugin tutorial](https://grafana.com/tutorials/build-a-data-source-backend-plugin)
-- [Grafana documentation](https://grafana.com/docs/)
-- [Grafana Tutorials](https://grafana.com/tutorials/) - Grafana Tutorials are step-by-step guides that help you make the most of Grafana
-- [Grafana UI Library](https://developers.grafana.com/ui) - UI components to help you build interfaces using Grafana Design System
-- [Grafana plugin SDK for Go](https://grafana.com/docs/grafana/latest/developers/plugins/backend/grafana-plugin-sdk-for-go/)
+```
+git clone https://github.com/jcnnrts/db-2-datasource-v-8
+cd db-2-datasource-v-8
+yarn install
+yarn build
+mage -v
+```

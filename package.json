@@ -1,7 +1,7 @@
 {
   "name": "jcnnrts-db-2-datasource-v-8",
   "version": "1.0.0",
-  "description": "Db2 backend datasource plugin for Grafana v8",
+  "description": "Db2 backend datasource plugin for Grafana v9",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
